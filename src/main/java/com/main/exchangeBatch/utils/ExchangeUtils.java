@@ -4,32 +4,37 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.exchangeBatch.dto.ExchangeDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Component
 public class ExchangeUtils {
-    @Autowired
-    private WebClient webClient;
 
-    @Value("${exchange.authkey}")
-    String authkey;
+    @Value("${exchange-authkey}")
+    private String authkey;
 
-    @Value("${exchange.data}")
-    String data;
+    @Value("${exchange-data}")
+    private String data;
 
-    LocalDate currentDate = LocalDate.now();
-    String searchdate = currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+    private final String searchdate = getSearchdate();
+
+    WebClient webClient;
 
     public JsonNode getExchangeDataSync() {
+
         DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory();
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
 
@@ -49,7 +54,6 @@ public class ExchangeUtils {
                 .retrieve()
                 .bodyToMono(String.class)
                 .block(); // 동기적으로 결과를 얻음
-
         return parseJson(responseBody);
     }
 
@@ -89,5 +93,19 @@ public class ExchangeUtils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private String getSearchdate() {
+
+        LocalDate currentDate = LocalDate.now();
+        DayOfWeek dayOfWeek = currentDate.getDayOfWeek();
+        // 토요일
+        if (dayOfWeek.getValue() == 6)
+            return currentDate.minusDays(1).format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        // 일요일
+        if (dayOfWeek.getValue() == 7)
+            return currentDate.minusDays(2).format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+
+        return currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
     }
 }
