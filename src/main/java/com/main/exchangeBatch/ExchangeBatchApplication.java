@@ -1,31 +1,35 @@
 package com.main.exchangeBatch;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.main.exchangeBatch.dto.ExchangeDto;
 import com.main.exchangeBatch.utils.ExchangeUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @SpringBootApplication
 public class ExchangeBatchApplication {
 
+
 	public static void main(String[] args) {
-		// ExchangeUtils 인스턴스 생성
+		// ExchangeUtils를 생성합니다.
 		ExchangeUtils exchangeUtils = new ExchangeUtils();
 
-		// 비동기적으로 데이터를 가져옵니다.
-		Mono<JsonNode> exchangeDataMono = exchangeUtils.getExchangeDataAsync();
+		// ExchangeUtils의 getExchangeDataAsDtoList 메서드를 호출하여 데이터를 가져옵니다.
+		List<ExchangeDto> exchangeDtoList = exchangeUtils.getExchangeDataAsDtoList();
 
-		// 결과를 처리합니다.
-		try {
-			JsonNode jsonNode = exchangeDataMono.block(); // block()을 사용하여 비동기 작업을 동기적으로 기다립니다.
+		// 가져온 데이터를 사용하는 로직을 추가합니다.
+		useExchangeDtoList(exchangeDtoList);
+	}
 
-			System.out.println("Exchange Data: " + jsonNode);
-			// 여기에서 필요한 작업을 수행합니다.
-
-		} catch (Exception e) {
-			System.err.println("Error retrieving exchange data: " + e);
-		} finally {
-			// 자원을 정리하거나 기타 작업을 수행할 수 있습니다.
+	private static void useExchangeDtoList(List<ExchangeDto> exchangeDtoList) {
+		// 여기에 ExchangeDtoList를 사용하는 코드를 추가합니다.
+		// 예를 들어, 각 ExchangeDto의 값을 출력하는 등의 작업을 수행할 수 있습니다.
+		for (ExchangeDto exchangeDto : exchangeDtoList) {
+			System.out.println("Currency: " + exchangeDto.getCur_nm());
+			System.out.println("Rate: " + exchangeDto.getTts());
+			// 추가적인 필드가 있다면 출력 또는 활용
 		}
 	}
 }
