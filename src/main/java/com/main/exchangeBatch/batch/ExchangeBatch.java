@@ -12,11 +12,13 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.List;
 
-
+@EnableScheduling // 스케줄링 기능 추가
 @Configuration
 public class ExchangeBatch {
     @Autowired
@@ -34,15 +36,15 @@ public class ExchangeBatch {
         return new StepBuilder("step", jobRepository)
                 .tasklet(tasklet, platformTransactionManager).build();
     }
+    @Scheduled(cron = "0 0 10 * * ?") // Run at 10:00 AM every day
     @Bean
-
     public Tasklet tasklet(){
         return ((contribution, chunkContext) -> {
             List<ExchangeDto> exchangeDtoList = exchangeUtils.getExchangeDataAsDtoList();
 
             for (ExchangeDto exchangeDto : exchangeDtoList) {
-                System.out.println("Currency: " + exchangeDto.getCur_nm());
-                System.out.println("Rate: " + exchangeDto.getTts());
+                System.out.println("통화 : " + exchangeDto.getCur_nm());
+                System.out.println("환율 : " + exchangeDto.getTts());
                 // 추가적인 필드가 있다면 출력 또는 활용
             }
             return RepeatStatus.FINISHED;
