@@ -44,7 +44,7 @@ public class ExchangeBatch {
 
             for (ExchangeDto exchangeDto : exchangeDtoList) {
                 System.out.println("통화 : " + exchangeDto.getCur_nm());
-                System.out.println("환율 : " + exchangeDto.getTts());
+                System.out.println("환율 : " + exchangeDto.getDeal_bas_r());
                 // 추가적인 필드가 있다면 출력 또는 활용
             }
             return RepeatStatus.FINISHED;
