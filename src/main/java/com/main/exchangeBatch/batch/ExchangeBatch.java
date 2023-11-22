@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.List;
@@ -36,7 +35,6 @@ public class ExchangeBatch {
         return new StepBuilder("step", jobRepository)
                 .tasklet(tasklet, platformTransactionManager).build();
     }
-    @Scheduled(cron = "0 0 10 * * ?") // Run at 10:00 AM every day
     @Bean
     public Tasklet tasklet(){
         return ((contribution, chunkContext) -> {
