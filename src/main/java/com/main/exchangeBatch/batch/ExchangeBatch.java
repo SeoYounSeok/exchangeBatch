@@ -12,7 +12,6 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.List;
@@ -22,7 +21,6 @@ public class ExchangeBatch {
     @Autowired
     private ExchangeUtils exchangeUtils;
 
-    @Autowired
     @Bean
     public Job exchangeJob(JobRepository jobRepository, Step step) {
         return new JobBuilder("exchangeJob", jobRepository)
