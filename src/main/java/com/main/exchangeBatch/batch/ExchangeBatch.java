@@ -17,7 +17,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.List;
 
-@EnableScheduling // 스케줄링 기능 추가
 @Configuration
 public class ExchangeBatch {
     @Autowired
