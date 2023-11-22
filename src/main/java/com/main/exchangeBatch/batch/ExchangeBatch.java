@@ -22,7 +22,6 @@ public class ExchangeBatch {
     @Autowired
     private ExchangeUtils exchangeUtils;
 
-    @Autowired
     @Bean
     public Job exchangeJob(JobRepository jobRepository, Step step) {
         return new JobBuilder("exchangeJob", jobRepository)
