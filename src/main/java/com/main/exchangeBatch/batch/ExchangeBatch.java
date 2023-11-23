@@ -2,6 +2,7 @@ package com.main.exchangeBatch.batch;
 
 import com.main.exchangeBatch.dto.ExchangeDto;
 import com.main.exchangeBatch.utils.ExchangeUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -13,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
-
 import java.util.List;
 
+@Slf4j
 @Configuration
 public class ExchangeBatch {
     @Autowired
@@ -38,8 +39,8 @@ public class ExchangeBatch {
             List<ExchangeDto> exchangeDtoList = exchangeUtils.getExchangeDataAsDtoList();
 
             for (ExchangeDto exchangeDto : exchangeDtoList) {
-                System.out.println("통화 : " + exchangeDto.getCur_nm());
-                System.out.println("환율 : " + exchangeDto.getDeal_bas_r());
+                log.info("통화 : " + exchangeDto.getCur_nm());
+                log.info("환율 : " + exchangeDto.getDeal_bas_r());
                 // 추가적인 필드가 있다면 출력 또는 활용
             }
             return RepeatStatus.FINISHED;
