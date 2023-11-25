@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.exchangeBatch.dto.ExchangeDto;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
@@ -57,7 +54,7 @@ public class ExchangeUtils {
         return parseJson(responseBody);
     }
 
-    private JsonNode parseJson(String responseBody) {
+    public JsonNode parseJson(String responseBody) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readTree(responseBody);
@@ -84,7 +81,7 @@ public class ExchangeUtils {
         return Collections.emptyList();
     }
 
-    private ExchangeDto convertJsonToExchangeDto(JsonNode jsonNode) {
+    public ExchangeDto convertJsonToExchangeDto(JsonNode jsonNode) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             return objectMapper.treeToValue(jsonNode, ExchangeDto.class);
@@ -95,7 +92,7 @@ public class ExchangeUtils {
         }
     }
 
-    private String getSearchdate() {
+    public String getSearchdate() {
 
         LocalDate currentDate = LocalDate.now();
         DayOfWeek dayOfWeek = currentDate.getDayOfWeek();
