@@ -1,9 +1,8 @@
-package com.example.exchangeBatch.utils;
+package com.main.exchangeBatch.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.exchangeBatch.dto.ExchangeDto;
-import com.main.exchangeBatch.utils.ExchangeUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
