@@ -10,7 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class SMSService {
+public class SmsService {
     @Value("${ncloud-sms-accessKey}")
     private String accessKey;
 
