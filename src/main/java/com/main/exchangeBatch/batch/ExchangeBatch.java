@@ -1,6 +1,6 @@
 package com.main.exchangeBatch.batch;
 
-import com.main.exchangeBatch.dto.ExchangeDto;
+import com.main.exchangeBatch.dto.ExchangeDTO;
 import com.main.exchangeBatch.utils.ExchangeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -36,9 +36,9 @@ public class ExchangeBatch {
     @Bean
     public Tasklet tasklet(){
         return ((contribution, chunkContext) -> {
-            List<ExchangeDto> exchangeDtoList = exchangeUtils.getExchangeDataAsDtoList();
+            List<ExchangeDTO> exchangeDTOList = exchangeUtils.getExchangeDataAsDtoList();
 
-            for (ExchangeDto exchangeDto : exchangeDtoList) {
+            for (ExchangeDTO exchangeDto : exchangeDTOList) {
                 log.info("통화 : " + exchangeDto.getCur_nm());
                 log.info("환율 : " + exchangeDto.getDeal_bas_r());
                 // 추가적인 필드가 있다면 출력 또는 활용
