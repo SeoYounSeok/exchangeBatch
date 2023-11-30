@@ -3,7 +3,7 @@ package com.main.exchangeBatch.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.main.exchangeBatch.dto.ExchangeDto;
+import com.main.exchangeBatch.dto.ExchangeDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -64,27 +64,27 @@ public class ExchangeUtils {
             return null;
         }
     }
-    public List<ExchangeDto> getExchangeDataAsDtoList() {
+    public List<ExchangeDTO> getExchangeDataAsDtoList() {
         JsonNode jsonNode = getExchangeDataSync();
 
         if (jsonNode != null && jsonNode.isArray()) {
-            List<ExchangeDto> exchangeDtoList = new ArrayList<>();
+            List<ExchangeDTO> exchangeDTOList = new ArrayList<>();
 
             for (JsonNode node : jsonNode) {
-                ExchangeDto exchangeDto = convertJsonToExchangeDto(node);
-                exchangeDtoList.add(exchangeDto);
+                ExchangeDTO exchangeDTO = convertJsonToExchangeDto(node);
+                exchangeDTOList.add(exchangeDTO);
             }
 
-            return exchangeDtoList;
+            return exchangeDTOList;
         }
 
         return Collections.emptyList();
     }
 
-    public ExchangeDto convertJsonToExchangeDto(JsonNode jsonNode) {
+    public ExchangeDTO convertJsonToExchangeDto(JsonNode jsonNode) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            return objectMapper.treeToValue(jsonNode, ExchangeDto.class);
+            return objectMapper.treeToValue(jsonNode, ExchangeDTO.class);
         } catch (JsonProcessingException e) {
             // 예외 처리 필요
             e.printStackTrace();

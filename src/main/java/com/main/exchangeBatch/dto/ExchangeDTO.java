@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @ToString
-public class ExchangeDto {
+public class ExchangeDTO {
     private Integer result; // 결과
     private String cur_unit; // 통화코드
     private String cur_nm; // 국가/통화명

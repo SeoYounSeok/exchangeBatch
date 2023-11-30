@@ -2,7 +2,7 @@ package com.main.exchangeBatch.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.main.exchangeBatch.dto.ExchangeDto;
+import com.main.exchangeBatch.dto.ExchangeDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -53,16 +53,16 @@ public class ExchangeUtilsTest {
     @Test
     @DisplayName("Dto 리스트 테스트 ")
     void testGetExchangeDataAsDtoList() {
-        List<ExchangeDto> exchangeDtoList = exchangeUtils.getExchangeDataAsDtoList();
-        assertNotNull(exchangeDtoList);
-        assertFalse(exchangeDtoList.isEmpty());
+        List<ExchangeDTO> exchangeDTOList = exchangeUtils.getExchangeDataAsDtoList();
+        assertNotNull(exchangeDTOList);
+        assertFalse(exchangeDTOList.isEmpty());
     }
 
     @Test
     @DisplayName("Json 데이터 Getter 확인 테스트")
     void convertJsonToExchangeDtoTest() throws IOException {
         // 테스트 대상 메서드 호출
-        ExchangeDto result = exchangeUtils.convertJsonToExchangeDto(new ObjectMapper().readTree("{\"cur_nm\":\"USD\",\"deal_bas_r\":1200}"));
+        ExchangeDTO result = exchangeUtils.convertJsonToExchangeDto(new ObjectMapper().readTree("{\"cur_nm\":\"USD\",\"deal_bas_r\":1200}"));
 
         // 결과 검증
         assertNotNull(result);
