@@ -34,12 +34,12 @@ public class SmsService {
     @Value("${ncloud-sms-fromPhoneNumber}")
     private String fromPhoneNumber;
 
-    public boolean sendMessage(String to, String message) throws JsonProcessingException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
+    public boolean sendMessage(String to, String content) throws JsonProcessingException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
         String smsURL = "https://sens.apigw.ntruss.com/sms/v2/services/"+ serviceId +"/messages";
         Long currentTime = System.currentTimeMillis();
 
         // SmsMessageDTO setting
-        SmsMessageDTO smsMessageDTO = new SmsMessageDTO(to, message);
+        SmsMessageDTO smsMessageDTO = new SmsMessageDTO(to, content);
 
         List<SmsMessageDTO> messages = new ArrayList<>();
         messages.add(smsMessageDTO);
